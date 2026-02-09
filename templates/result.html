@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+        .container {
+            background: #fff;
+            margin-top: 50px;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            max-width: 850px;
+            width: 100%;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+        strong {
+            color: #2c3e50;
+        }
+        .prediction {
+            font-weight: bold;
+            color: green;
+            font-size: 20px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-left: 5px solid #3498db;
+            padding-left: 10px;
+        }
+        img {
+            display: block;
+            margin: auto;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            max-width: 100%;
+        }
+        img:hover {
+            transform: scale(1.05);
+        }
+        a {
+            display: inline-block;
+            margin-top: 25px;
+            text-decoration: none;
+            background: #3498db;
+            color: white;
+            padding: 12px 22px;
+            border-radius: 8px;
+            transition: background 0.3s ease, transform 0.2s;
+        }
+        a:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 style="margin-top: -30px;">Prediction Result</h1>
+        <p><strong style="margin-top: -30px;">Predicted Class:</strong> <span class="prediction">{{ prediction }}</span></p>
+        
+        
+        <div>
+            {% if lime_plot_path %}
+                <h2>LIME Explanation</h2>
+                <img src="{{ lime_plot_path }}" alt="LIME Explanation" />
+            {% endif %}
+            {% if shap_plot_path %}
+                <h2>SHAP Explanation</h2>
+                <img src="{{ shap_plot_path }}" alt="SHAP Explanation" />
+            {% endif %}
+
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="{{ url_for('predict') }}">⬅ Go Back</a>
+        </div>
+    </div>
+</body>
+</html>

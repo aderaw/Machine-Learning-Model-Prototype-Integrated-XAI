@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Default Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .form-group {
+            flex: 1 1 calc(25% - 20px); /* Four equal columns */
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #555;
+        }
+
+        input[type="number"], select, button {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        input[type="number"]:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+        }
+
+        button {
+            border: none;
+            background: #4CAF50;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1100px) {
+            .form-group {
+                flex: 1 1 calc(33.33% - 20px); /* 3 columns on smaller screens */
+            }
+        }
+
+        @media (max-width: 800px) {
+            .form-group {
+                flex: 1 1 calc(50% - 20px); /* 2 columns on tablets */
+            }
+        }
+
+        @media (max-width: 500px) {
+            .form-group {
+                flex: 1 1 100%; /* 1 column on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Loan Default Prediction</h1>
+        <form method="POST">
+            {% for feature in features %}
+                <div class="form-group">
+                    <label for="{{ feature }}">{{ feature }}:</label>
+                    {% if feature in categorical_options %}
+                        <select name="{{ feature }}" id="{{ feature }}" required>
+                            {% for label, val in categorical_options[feature] %}
+                                <option value="{{ label }}">{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                    {% else %}
+                        <input type="number" step="any" name="{{ feature }}" id="{{ feature }}" required />
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <!-- Explanation Method as equal column -->
+            <div class="form-group">
+                <label for="method">Explanation Method:</label>
+                <select name="method" id="method" required>
+                    <option value="LIME">LIME</option>
+                    <option value="SHAP">SHAP</option>
+                </select>
+            </div>
+
+
+            <!-- Predict button as equal column -->
+            <div class="form-group" style="align-self: flex-end;">
+                <button type="submit">Predict</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
