@@ -13,6 +13,7 @@ import lime.lime_tabular
 import matplotlib.pyplot as plt
 import joblib
 import uuid
+from mlp_extractor import MLPFeatureExtractor
 
 from sklearn.base import BaseEstimator, TransformerMixin
 
@@ -33,6 +34,7 @@ class MLPFeatureExtractor(BaseEstimator, TransformerMixin):
 # ===========================
 # Load trained hybrid pipeline
 # ===========================
+
 pipeline = joblib.load("hybrid_model_pipeline.pkl")
 
 mlp_extractor = pipeline["mlp_extractor"]
