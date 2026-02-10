@@ -17,24 +17,6 @@ from mlp_extractor import MLPFeatureExtractor
 
 from sklearn.base import BaseEstimator, TransformerMixin
 
-# =====================================================
-# Custom class (MUST match the training-time definition)
-# =====================================================
-class MLPFeatureExtractor(BaseEstimator, TransformerMixin):
-    def __init__(self, mlp_model):
-        self.mlp_model = mlp_model
-
-    def fit(self, X, y=None):
-        return self
-
-    def transform(self, X):
-        X_array = X.values if isinstance(X, pd.DataFrame) else X
-        return self.mlp_model.predict_proba(X_array)
-
-# ===========================
-# Load trained hybrid pipeline
-# ===========================
-
 pipeline = joblib.load("hybrid_model_pipeline.pkl")
 
 mlp_extractor = pipeline["mlp_extractor"]
